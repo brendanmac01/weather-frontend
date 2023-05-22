@@ -36,3 +36,57 @@
     transform: rotate(360deg);
   }
 }
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.weather-inner {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.weather-icon {
+  width: 100px; /* Adjust the width as per your requirement */
+  height: 100px; /* Adjust the height as per your requirement */
+  margin-right: 10px;
+}
+
+.weather-text {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.weather-details {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.location-button,
+.update-button {
+  width: 200px; /* Adjust the width as per your requirement */
+  margin-top: 20px;
+}
