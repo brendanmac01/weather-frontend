@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 const Index = (props) => {
   const [currentWeather, setCurrentWeather] = useState(null);
-  const [showButton, setShowButton] = useState(true);
   const [showUpdateButton, setShowUpdateButton] = useState(false);
 
   useEffect(() => {
@@ -12,14 +11,9 @@ const Index = (props) => {
 
     if (weatherData && isButtonVisible === 'false') {
       setCurrentWeather(JSON.parse(weatherData));
-      setShowButton(false);
       setShowUpdateButton(false);
-    } else if (weatherData && isButtonVisible === 'true') {
-      setShowButton(false);
-      setShowUpdateButton(true);
     } else {
-      setShowButton(true);
-      setShowUpdateButton(false);
+      setShowUpdateButton(true);
     }
   }, []);
 
@@ -107,33 +101,35 @@ const Index = (props) => {
             </div>
           </div>
         )}
-        {showButton ? (
-          props.weather.map((indvweather) => (
-            <div key={indvweather._id} className="indvweather">
-              <Link to={`/weather/${indvweather._id}`}>
-                <h1>{indvweather.zip}</h1>
-              </Link>
-            </div>
-          ))
-        ) : (
-          <div className="button-container">
-            {showUpdateButton ? (
-              <button className="update-button" onClick={handleUpdateClick}>
-                Check for Updates
-              </button>
-            ) : (
-              <button className="location-button" onClick={handleLocationClick}>
-                Get Current Location
-              </button>
-            )}
+        {props.weather.length > 0 ? (
+          <div className="zip-codes">
+            <h2>Your Zip Codes:</h2>
+            <ul>
+              {props.weather.map((indvweather) => (
+                <li key={indvweather._id}>
+                  <Link to={`/weather/${indvweather._id}`}>{indvweather.zip}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
-        )}
+        ) : null}
+        <div className="button-container">
+          {showUpdateButton ? (
+            <button className="update-button" onClick={handleUpdateClick}>
+              Check for Updates
+            </button>
+          ) : (
+            <button className="location-button" onClick={handleLocationClick}>
+              Get Current Location
+            </button>
+          )}
+        </div>
       </div>
     );
   };
 
   const loading = () => {
-    return <h1> Loading...</h1>;
+    return <h1>Loading...</h1>;
   };
 
   return (

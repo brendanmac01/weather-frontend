@@ -23,17 +23,18 @@ const Main = (props) => {
     }
 
     const createWeather = async (indvweather) => {
-        if(!props.user) return;
+        if (!props.user) return;
         const token = await props.user.getIdToken();
         await fetch(URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "Application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify(indvweather)
-        })
-    }
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token,
+          },
+          body: JSON.stringify(indvweather),
+        });
+      };
+      
     const updateWeather = async (indvweather, id) => {
         await fetch(URL + id, {
             method: "PUT",
