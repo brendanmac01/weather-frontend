@@ -7,8 +7,8 @@ import Show from '../pages/Show'
 const Main = (props) => {
     const [ weather, setWeather] = useState(null)
 
-    const URL = "http://localhost:4000/weather/";
-    // const URL ="https://weather-backend-hhcy.onrender.com/weather/";
+    // const URL = "http://localhost:4000/weather/";
+    const URL ="https://weather-backend-hhcy.onrender.com/weather/";
     const getWeather = async () => {
         if(!props.user) return;
         const token = await props.user.getIdToken();
