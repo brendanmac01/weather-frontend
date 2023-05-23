@@ -74,8 +74,8 @@ const Index = (props) => {
   };
 
   const handleRandomLocationClick = async () => {
-    const min = 10000; // Minimum zip code value
-    const max = 99999; // Maximum zip code value
+    const min = 10000; 
+    const max = 99999; 
     const randomZipCode = Math.floor(Math.random() * (max - min + 1)) + min;
     setRandomZip(randomZipCode.toString());
 
@@ -126,7 +126,7 @@ const Index = (props) => {
           {showUpdateButton ? (
             <>
               <button class="btn btn-warning" onClick={handleUpdateClick}>
-                Check for Updates
+                Check Local Updates
               </button>
               <button class="btn btn-success" onClick={handleRandomLocationClick}>
                 Random Location
