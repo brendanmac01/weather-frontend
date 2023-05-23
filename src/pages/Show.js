@@ -61,15 +61,15 @@ const Show = (props) => {
     return (
       <>
         <h1>{indvweather.zip}</h1>
-        <button onClick={handleEdit}>{isEditing ? 'Cancel Edit' : 'Edit'}</button>
-        <button onClick={handleDelete}>Delete</button>
-        <button onClick={fetchWeatherData}>Get Weather</button>
+        <button class="btn btn-warning" onClick={handleEdit}>{isEditing ? 'Cancel Edit' : 'Edit'}</button>
+        <button class="btn btn-danger" onClick={handleDelete}>Delete</button>
+        <button class="btn btn-success" onClick={fetchWeatherData}>Get Weather Info</button>
         {currentWeather && (
           <>
             <h2>{currentWeather.location.name}, {currentWeather.location.region}</h2>
             <div className="weather-info">
               <img src={currentWeather.current.condition.icon} alt="Weather Icon" />
-              <div className="weather-text">
+              <div className="weather-text"style={{ color: 'red' }}>
                 <p>
                   <span>Temperature:</span> {currentWeather.current.temp_c}°C
                 </p>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+
 const Index = (props) => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [showUpdateButton, setShowUpdateButton] = useState(false);
@@ -124,19 +125,19 @@ const Index = (props) => {
         <div className="button-container">
           {showUpdateButton ? (
             <>
-              <button className="update-button" onClick={handleUpdateClick}>
+              <button class="btn btn-warning" onClick={handleUpdateClick}>
                 Check for Updates
               </button>
-              <button className="location-button" onClick={handleRandomLocationClick}>
+              <button class="btn btn-success" onClick={handleRandomLocationClick}>
                 Random Location
               </button>
             </>
           ) : (
             <>
-              <button className="location-button" onClick={handleLocationClick}>
+              <button class="btn btn-warning" onClick={handleLocationClick}>
                 Get Local Weather
               </button>
-              <button className="location-button" onClick={handleRandomLocationClick}>
+              <button class="btn btn-success" onClick={handleRandomLocationClick}>
                 Random Location
               </button>
             </>
@@ -145,16 +146,20 @@ const Index = (props) => {
 
         {randomZip && <p>Random Zip Code: {randomZip}</p>}
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={newForm.zip}
-            name="zip"
-            placeholder="zip"
-            onChange={handleChange}
-          />
-          <input type="submit" value="Add Location" />
+        <form className="my-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              value={newForm.zip}
+              name="zip"
+              placeholder="Enter ZIP code"
+              onChange={handleChange}
+            />
+          </div>
+            <button type="submit" className="btn btn-primary">Add Location</button>
         </form>
+
 
         {props.weather.length > 0 && (
           <div className="zip-codes">
@@ -173,7 +178,7 @@ const Index = (props) => {
   };
 
   const loading = () => {
-    return <h1>Loading...</h1>;
+    return <h11>Please Login to Continue...</h11>;
   };
 
   return (
