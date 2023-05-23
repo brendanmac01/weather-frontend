@@ -14,6 +14,8 @@ Weather App is an application that allows you to search weather reports based on
 * Node
 * Render
 * Heroku
+* Firebase
+* Bootstrap
 * ENV
 * API Integration
 
