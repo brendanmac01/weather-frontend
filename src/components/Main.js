@@ -52,12 +52,14 @@ const Main = (props) => {
         getWeather();
     }
     useEffect(() => {
-        if(props.user) {
-            getWeather()
+        if (props.user) {
+          getWeather();
         } else {
-            setWeather(null);
+          setWeather(null);
         }
-    }, [props.user]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [props.user]);
+      
 
 return (
     <main>
