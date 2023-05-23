@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 const Index = (props) => {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [showUpdateButton, setShowUpdateButton] = useState(false);
+  const [randomZip, setRandomZip] = useState('');
+  const [newForm, setNewForm] = useState({ zip: '' });
 
   useEffect(() => {
     const weatherData = localStorage.getItem('weatherData');
@@ -14,6 +16,7 @@ const Index = (props) => {
       setShowUpdateButton(false);
     } else {
       setShowUpdateButton(true);
+      handleRandomLocationClick();
     }
   }, []);
 
@@ -45,8 +48,8 @@ const Index = (props) => {
       if (response.ok) {
         const data = await response.json();
         setCurrentWeather(data);
-        localStorage.setItem('weatherData', JSON.stringify(data)); // Store weather data in localStorage
-        localStorage.setItem('isButtonVisible', 'false'); // Store visibility of button in localStorage
+        localStorage.setItem('weatherData', JSON.stringify(data));
+        localStorage.setItem('isButtonVisible', 'false');
       } else {
         console.error('Request failed. Status:', response.status);
       }
@@ -59,10 +62,6 @@ const Index = (props) => {
     console.error('Error getting user location:', error.message);
   };
 
-  const [newForm, setNewForm] = useState({
-    zip: '',
-  });
-
   const handleChange = (event) => {
     setNewForm({ ...newForm, [event.target.name]: event.target.value });
   };
@@ -70,9 +69,29 @@ const Index = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.createWeather(newForm);
-    setNewForm({
-      zip: '',
-    });
+    setNewForm({ zip: '' });
+  };
+
+  const handleRandomLocationClick = async () => {
+    const min = 10000; // Minimum zip code value
+    const max = 99999; // Maximum zip code value
+    const randomZipCode = Math.floor(Math.random() * (max - min + 1)) + min;
+    setRandomZip(randomZipCode.toString());
+
+    try {
+      const apiKey = 'fcb37b61437142b9abf201101232205';
+      const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${randomZipCode}`;
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentWeather(data);
+      } else {
+        console.error('Request failed. Status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
   };
 
   const loaded = () => {
@@ -101,7 +120,43 @@ const Index = (props) => {
             </div>
           </div>
         )}
-        {props.weather.length > 0 ? (
+
+        <div className="button-container">
+          {showUpdateButton ? (
+            <>
+              <button className="update-button" onClick={handleUpdateClick}>
+                Check for Updates
+              </button>
+              <button className="location-button" onClick={handleRandomLocationClick}>
+                Random Location
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="location-button" onClick={handleLocationClick}>
+                Get Local Weather
+              </button>
+              <button className="location-button" onClick={handleRandomLocationClick}>
+                Random Location
+              </button>
+            </>
+          )}
+        </div>
+
+        {randomZip && <p>Random Zip Code: {randomZip}</p>}
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={newForm.zip}
+            name="zip"
+            placeholder="zip"
+            onChange={handleChange}
+          />
+          <input type="submit" value="Add Location" />
+        </form>
+
+        {props.weather.length > 0 && (
           <div className="zip-codes">
             <h2>Your Zip Codes:</h2>
             <ul>
@@ -112,18 +167,7 @@ const Index = (props) => {
               ))}
             </ul>
           </div>
-        ) : null}
-        <div className="button-container">
-          {showUpdateButton ? (
-            <button className="update-button" onClick={handleUpdateClick}>
-              Check for Updates
-            </button>
-          ) : (
-            <button className="location-button" onClick={handleLocationClick}>
-              Get Current Location
-            </button>
-          )}
-        </div>
+        )}
       </div>
     );
   };
@@ -134,16 +178,6 @@ const Index = (props) => {
 
   return (
     <section className="main-container">
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={newForm.zip}
-          name="zip"
-          placeholder="zip"
-          onChange={handleChange}
-        />
-        <input type="submit" value="Add Location" />
-      </form>
       {props.weather ? loaded() : loading()}
     </section>
   );

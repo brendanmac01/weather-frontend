@@ -24,9 +24,10 @@ nav {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  background: linear-gradient(to right, #28d7c3, #602386);
 
   a {
-    @include white-text-black-bg;
+    color: white;
     div {
       margin: 10px;
       font-size: large;
