@@ -22,3 +22,6 @@ Weather App is an application that allows you to search weather reports based on
 
 # Deployed Link
 [Click here to check out Weather APP](https://weather-app-01.herokuapp.com/) 
+
+# Future Enhancements
+* Finish Twilio Integration for SMS based Notifications
